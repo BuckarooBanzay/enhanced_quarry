@@ -8,4 +8,17 @@ STATE: WIP
 
 # Usage
 
-# Licenses
+# Features
+
+* TBD
+
+# Planned features
+
+* Technic integration
+* Pipeworks compatiblity
+* Mesecons compatiblity
+* Digilines compatiblity
+
+# License
+
+MIT
