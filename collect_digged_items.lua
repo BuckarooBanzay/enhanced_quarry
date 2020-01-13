@@ -2,6 +2,16 @@
 -- node_id -> drops
 local map = {}
 
+-- id -> true
+local skip_ids = {}
+
+-- populate skip map
+skip_ids[minetest.get_content_id("air")] = true
+
+if minetest.get_modpath("vacuum") then
+  skip_ids[minetest.get_content_id("vacuum:vacuum")] = true
+end
+
 -- collect node drops from node_id's
 minetest.register_on_mods_loaded(function()
   for name, nodedef in pairs(minetest.registered_nodes) do
@@ -17,6 +27,11 @@ minetest.register_on_mods_loaded(function()
 end)
 
 function enhanced_quarry.collect_digged_items(id, digged_node_map)
+  if skip_ids[id] then
+    -- everything ok but nothing collected
+    return true
+  end
+
   local drops = map[id]
 
   if drops then

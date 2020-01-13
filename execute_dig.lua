@@ -70,6 +70,9 @@ function enhanced_quarry.execute_dig(pos)
 	manip:write_to_map()
 	manip:update_map()
 
+  -- add effects
+  enhanced_quarry.create_dig_effect(dig_pos, dig_pos1, dig_pos2, face_dir)
+
   -- add to inventory
   local inv = meta:get_inventory()
 
