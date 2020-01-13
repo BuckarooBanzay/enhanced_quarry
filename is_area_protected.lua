@@ -3,7 +3,7 @@ local has_protector_mod = minetest.get_modpath("protector")
 
 local protector_radius = (tonumber(minetest.settings:get("protector_radius")) or 5)
 
-enhanced_quarry.is_area_protected = function(pos1, pos2, playername)
+function enhanced_quarry.is_area_protected(pos1, pos2, playername)
 
 	local radius_vector = {x=protector_radius, y=protector_radius, z=protector_radius}
 	local check_pos1 = vector.subtract(pos1, radius_vector)
