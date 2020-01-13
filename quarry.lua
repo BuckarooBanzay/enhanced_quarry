@@ -1,5 +1,16 @@
-local tube_entry = "^pipeworks_tube_connection_metallic.png"
-local cable_entry = "^technic_cable_connection_overlay.png"
+local has_technic_mod = minetest.get_modpath("technic")
+local has_pipeworks_mod = minetest.get_modpath("pipeworks")
+
+local tube_entry = ""
+local cable_entry = ""
+
+if has_pipeworks_mod then
+	tube_entry = "^pipeworks_tube_connection_metallic.png"
+end
+
+if has_technic_mod then
+	cable_entry = "^technic_cable_connection_overlay.png"
+end
 
 minetest.register_node("enhanced_quarry:enhanced_quarry", {
 	description = "Enhanced Quarry",
