@@ -57,8 +57,8 @@ function enhanced_quarry.execute_dig(pos)
     end
 
     data[index] = air_id
-    param1_data = 0
-    param2_data = 0
+    param1_data[index] = 0
+    param2_data[index] = 0
   end
   end
   end
