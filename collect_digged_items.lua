@@ -21,7 +21,7 @@ minetest.register_on_mods_loaded(function()
     if simple_drop and not has_custom_drop_function then
       -- simple node
       local id = minetest.get_content_id(name)
-      map[id] = nodedef.drop
+      map[id] = nodedef.drop or name
     end
 	end
 end)
