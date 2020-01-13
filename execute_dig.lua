@@ -14,14 +14,16 @@ function enhanced_quarry.execute_dig(pos)
 
   -- assemble coords
   local face_dir = minetest.facedir_to_dir(node.param2)
+
   local offset = 3
   local position_offset = vector.multiply(face_dir, {x=offset, y=offset, z=offset})
-  local radius = {x=1, y=1, z=1}
+
+  local radius = 1
+  local radius_pos = {x=radius, y=radius, z=radius}
 
   local dig_pos = vector.add(pos, position_offset)
-
-  local dig_pos1 = vector.subtract(dig_pos, radius)
-  local dig_pos2 = vector.add(dig_pos, radius)
+  local dig_pos1 = vector.subtract(dig_pos, radius_pos)
+  local dig_pos2 = vector.add(dig_pos, radius_pos)
 
   -- check protection
   local protected = enhanced_quarry.is_area_protected(dig_pos1, dig_pos2, owner)
