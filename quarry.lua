@@ -60,7 +60,7 @@ minetest.register_node("enhanced_quarry:enhanced_quarry", {
 		meta:set_int("run", 0)
 		meta:set_int("radius", 1) -- nodes around dig-point
 		meta:set_int("max_depth", 100) -- in nodes away from quarry
-		meta:set_int("depth_steps", 0) -- in ((radius*2)+1)-steps
+		meta:set_int("depth", 1) -- in nodes
 
     -- inventories
     local inv = meta:get_inventory()

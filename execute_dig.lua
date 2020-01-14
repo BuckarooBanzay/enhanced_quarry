@@ -19,12 +19,10 @@ function enhanced_quarry.execute_dig(pos)
   local radius = meta:get_int("radius")
   local radius_pos = {x=radius, y=radius, z=radius}
 
-  local depth_steps = meta:get_int("depth_steps")
+  local depth = meta:get_int("depth")
   local max_depth = meta:get_int("max_depth")
 
-  local depth = enhanced_quarry.calculate_depth_in_nodes(meta)
-
-  if depth >= max_depth then
+  if depth > max_depth then
     -- target depth reached
     meta:set_string("message", "Target depth reached")
     meta:set_int("run", 0)
@@ -32,10 +30,13 @@ function enhanced_quarry.execute_dig(pos)
   end
 
   local position_offset = vector.multiply(face_dir, {x=depth, y=depth, z=depth})
+  local plane_subtract = vector.multiply(face_dir, radius_pos)
 
   local dig_pos = vector.add(pos, position_offset)
-  local dig_pos1 = vector.subtract(dig_pos, radius_pos)
-  local dig_pos2 = vector.add(dig_pos, radius_pos)
+
+  -- this should now be a flat plane
+  local dig_pos1 = vector.add( vector.subtract(dig_pos, radius_pos), plane_subtract )
+  local dig_pos2 = vector.subtract( vector.add(dig_pos, radius_pos), plane_subtract )
 
   -- check protection
   local protected = enhanced_quarry.is_area_protected(dig_pos1, dig_pos2, owner)
@@ -89,8 +90,8 @@ function enhanced_quarry.execute_dig(pos)
   -- add effects
   enhanced_quarry.create_dig_effect(depth, dig_pos, dig_pos1, dig_pos2, face_dir)
 
-  -- shift to next dig step offset
-  meta:set_int("depth_steps", depth_steps + 1)
+  -- shift to next dig depth
+  meta:set_int("depth", depth + 1)
 
   -- add to inventory
   local inv = meta:get_inventory()

@@ -2,8 +2,7 @@
 
 function enhanced_quarry.update_formspec(meta)
 
-	local depth = enhanced_quarry.calculate_depth_in_nodes(meta)
-
+	local depth = meta:get_int("depth")
 	local message = meta:get_string("message")
 	local powerstorage = meta:get_int("powerstorage")
 	local max_depth = meta:get_int("max_depth")

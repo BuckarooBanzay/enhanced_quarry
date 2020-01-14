@@ -27,7 +27,7 @@ function enhanced_quarry.on_receive_fields(pos, _, fields, sender)
     end
 
     meta:set_string("message", "")
-    meta:set_int("depth_steps", 0)
+    meta:set_int("depth", 1)
 
     enhanced_quarry.update_formspec(meta)
     enhanced_quarry.update_infotext(meta)
