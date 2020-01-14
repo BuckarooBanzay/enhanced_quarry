@@ -6,6 +6,7 @@ function enhanced_quarry.execute_dig(pos)
   local node = minetest.get_node(pos)
 
   if node and node.name == "ignore" then
+    -- something is off :/
     return
   end
 
@@ -15,11 +16,22 @@ function enhanced_quarry.execute_dig(pos)
   -- assemble coords
   local face_dir = minetest.facedir_to_dir(node.param2)
 
-  local offset = 3
-  local position_offset = vector.multiply(face_dir, {x=offset, y=offset, z=offset})
-
-  local radius = 1
+  local radius = meta:get_int("radius")
   local radius_pos = {x=radius, y=radius, z=radius}
+
+  local depth_steps = meta:get_int("depth_steps")
+  local max_depth = meta:get_int("max_depth")
+
+  local depth = enhanced_quarry.calculate_depth_in_nodes(meta)
+
+  if depth >= max_depth then
+    -- target depth reached
+    meta:set_string("message", "Target depth reached")
+    meta:set_int("run", 0)
+    return
+  end
+
+  local position_offset = vector.multiply(face_dir, {x=depth, y=depth, z=depth})
 
   local dig_pos = vector.add(pos, position_offset)
   local dig_pos1 = vector.subtract(dig_pos, radius_pos)
@@ -29,6 +41,8 @@ function enhanced_quarry.execute_dig(pos)
   local protected = enhanced_quarry.is_area_protected(dig_pos1, dig_pos2, owner)
 
   if protected then
+    meta:set_string("message", "Digging protected nodes around position: " .. minetest.pos_to_string(dig_pos))
+    meta:set_int("run", 0)
     return
   end
 
@@ -53,6 +67,8 @@ function enhanced_quarry.execute_dig(pos)
 
     if not success then
       -- artifical/complex node encountered, abort
+      meta:set_string("message", "Digging obstructed around position: " .. minetest.pos_to_string(dig_pos))
+      meta:set_int("run", 0)
       return
     end
 
@@ -72,6 +88,9 @@ function enhanced_quarry.execute_dig(pos)
 
   -- add effects
   enhanced_quarry.create_dig_effect(dig_pos, dig_pos1, dig_pos2, face_dir)
+
+  -- shift to next dig step offset
+  meta:get_int("depth_steps", depth_steps + 1)
 
   -- add to inventory
   local inv = meta:get_inventory()

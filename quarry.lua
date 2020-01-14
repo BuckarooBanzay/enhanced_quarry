@@ -45,15 +45,33 @@ minetest.register_node("enhanced_quarry:enhanced_quarry", {
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
+		meta:set_int("version", 1)
+
+		-- energy storage
+		meta:set_int("powerstorage", 0)
+		meta:set_int("max_powerstorage", 150000)
+		meta:set_int("power_requirement", 25000) -- power requirement if charging
+
+		-- power usage
+		meta:set_int("HV_EU_input", 0)
+		meta:set_int("HV_EU_demand", 0) -- current demand
+
+		-- state
+		meta:set_int("run", 0)
+		meta:set_int("radius", 1) -- nodes around dig-point
+		meta:set_int("max_depth", 100) -- in nodes away from quarry
+		meta:set_int("depth_steps", 0) -- in ((radius*2)+1)-steps
 
     -- inventories
     local inv = meta:get_inventory()
     inv:set_size("main", 8*4)
 
-    enhanced_quarry.update_formspec(meta, pos)
+		enhanced_quarry.update_formspec(meta, pos)
+		enhanced_quarry.update_infotext(meta, pos)
 	end,
 
   on_receive_fields = enhanced_quarry.on_receive_fields,
+	technic_run = enhanced_quarry.technic_run,
 
   can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);

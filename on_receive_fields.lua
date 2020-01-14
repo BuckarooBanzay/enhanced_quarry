@@ -10,8 +10,25 @@ function enhanced_quarry.on_receive_fields(pos, _, fields, sender)
     return
   end
 
-  if fields.test then
-    enhanced_quarry.execute_dig(pos)
+  local meta = minetest.get_meta(pos)
+
+  if fields.save then
+    local max_depth = math.min(100, tonumber(fields.depth or "0"))
+    meta:set_int("max_depth", max_depth)
+  end
+
+  if fields.toggle then
+    local run = meta:get_int("run")
+
+    if run == 1 then
+      meta:set_int("run", 0)
+    else
+      meta:set_int("run", 1)
+    end
+
+    meta:set_string("message", "")
+    enhanced_quarry.update_formspec(meta)
+    enhanced_quarry.update_infotext(meta)
   end
 
 end
