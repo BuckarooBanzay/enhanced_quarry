@@ -87,10 +87,10 @@ function enhanced_quarry.execute_dig(pos)
 	manip:update_map()
 
   -- add effects
-  enhanced_quarry.create_dig_effect(dig_pos, dig_pos1, dig_pos2, face_dir)
+  enhanced_quarry.create_dig_effect(depth, dig_pos, dig_pos1, dig_pos2, face_dir)
 
   -- shift to next dig step offset
-  meta:get_int("depth_steps", depth_steps + 1)
+  meta:set_int("depth_steps", depth_steps + 1)
 
   -- add to inventory
   local inv = meta:get_inventory()
