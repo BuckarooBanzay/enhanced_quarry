@@ -6,9 +6,9 @@ function enhanced_quarry.update_infotext(meta)
 	local run = meta:get_int("run")
 	if run == 1 then
 		local depth = meta:get_int("depth")
-		infotext = infotext + "(digging @ " .. depth .. "m)"
+		infotext = infotext .. "(digging @ " .. depth .. "m)"
 	else
-		infotext = infotext + "(idle)"
+		infotext = infotext .. "(idle)"
 	end
 
 	local message = meta:get_string("message")

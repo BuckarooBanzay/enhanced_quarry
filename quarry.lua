@@ -49,7 +49,7 @@ minetest.register_node("enhanced_quarry:enhanced_quarry", {
 
 		-- energy storage
 		meta:set_int("powerstorage", 0)
-		meta:set_int("max_powerstorage", 150000)
+		meta:set_int("max_powerstorage", 25000)
 		meta:set_int("power_requirement", 25000) -- power requirement if charging
 
 		-- power usage
@@ -58,8 +58,8 @@ minetest.register_node("enhanced_quarry:enhanced_quarry", {
 
 		-- state
 		meta:set_int("run", 0)
-		meta:set_int("radius", 1) -- nodes around dig-point
-		meta:set_int("max_depth", 100) -- in nodes away from quarry
+		meta:set_int("radius", 2) -- nodes around dig-point
+		meta:set_int("max_depth", 50) -- in nodes away from quarry
 		meta:set_int("depth", 1) -- in nodes
 
     -- inventories
@@ -82,3 +82,8 @@ minetest.register_node("enhanced_quarry:enhanced_quarry", {
 	end,
 
 })
+
+
+if minetest.get_modpath("technic") then
+	technic.register_machine("HV", "enhanced_quarry:enhanced_quarry", technic.receiver)
+end

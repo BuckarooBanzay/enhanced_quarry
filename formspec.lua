@@ -19,14 +19,14 @@ function enhanced_quarry.update_formspec(meta)
 		"label[0,0;State: " .. state .. "]" ..
 		"label[2,0;Depth: " .. depth .. "]" ..
 		"label[4,0;Powerstorage: " .. powerstorage .. " EU]" ..
-		"label[6,0;Message: " .. message .. "]" ..
+		"label[0,0.5;Message: " .. message .. "]" ..
 
-		"button[0,1;2,1;toggle;On/Off]" ..
-		"field[4,1;2,1;depth;Max depth;" .. max_depth .. "]" ..
-		"button_exit[0,6;2,1;save;Save]" ..
+		"button[0,1.5;2,1;toggle;On/Off]" ..
+		"field[4,1.8;2,1;depth;Max depth;" .. max_depth .. "]" ..
+		"button_exit[6,1.5;2,1;save;Save]" ..
 
-		"list[context;main;0,2;8,4;]" ..
-		"list[current_player;main;0,6.5;8,4;]" ..
+		"list[context;main;0,2.5;8,4;]" ..
+		"list[current_player;main;0,7;8,4;]" ..
 
 		-- listring stuff
 		"listring[]"

@@ -68,7 +68,9 @@ function enhanced_quarry.execute_dig(pos)
 
     if not success then
       -- artifical/complex node encountered, abort
-      meta:set_string("message", "Digging obstructed around position: " .. minetest.pos_to_string(dig_pos))
+			local nodename = minetest.get_name_from_content_id(id)
+			local current_pos = {x=x, y=y, z=z}
+      meta:set_string("message", "Digging obstructed: " .. minetest.pos_to_string(current_pos) .. ": " .. nodename)
       meta:set_int("run", 0)
       return
     end

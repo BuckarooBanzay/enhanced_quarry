@@ -7,7 +7,7 @@ function enhanced_quarry.create_dig_effect(depth, dig_pos, dig_pos1, dig_pos2, d
   local velocity_pos = vector.multiply(direction, {x=velocity, y=velocity, z=velocity})
   local acceleration = vector.multiply(direction, {x=1, y=1, z=1})
 
-  local exptime = math.floor( (depth - 1) / velocity )
+  local exptime = math.floor( (depth - 1) / velocity / 2 )
 
   minetest.add_particlespawner({
     amount = 30,
